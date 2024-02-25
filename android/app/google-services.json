@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1051586501275",
+    "project_id": "tager-5e2ee",
+    "storage_bucket": "tager-5e2ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051586501275:android:6f5789864afe703c12c43e",
+        "android_client_info": {
+          "package_name": "com.yazid.tager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051586501275-9i0pvvm1vauval7kg84713bjua9kkb25.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yazid.tager",
+            "certificate_hash": "5d16401669ca384b51da9117fd7022003a9484ea"
+          }
+        },
+        {
+          "client_id": "1051586501275-n05ug0dok02s7v6sck0s0sj7j5ikmfs8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0T-3Pn3rAnONefJFmd8RzON1Q97inwt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051586501275-n05ug0dok02s7v6sck0s0sj7j5ikmfs8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
