@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tager/Model/RequestModel.dart';
-
+import 'package:tager/View/makeOrderProcessPages/to_where_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../resourses/GoogleApiKey.dart';
 // api key : AIzaSyA0T-3Pn3rAnONefJFmd8RzON1Q97inwt0
 class MapClassForOrder extends StatefulWidget {
@@ -77,6 +78,48 @@ class _MapClassState extends State<MapClassForOrder> {
         colorSchemeSeed: Colors.green[700],
       ),
       home: Scaffold(
+        appBar: AppBar(
+            centerTitle: true,
+            title: Text("تاكد من الطلب",style: TextStyle(color: Colors.white),),
+            backgroundColor: Colors.black,
+            leading: IconButton(
+              onPressed: (){
+                Navigator.of(context).pushReplacement(
+
+                    MaterialPageRoute(builder: (context)=> ToWherePage())
+                );
+              },
+              icon: Icon(Icons.arrow_back_outlined,color: Colors.white,),
+            ),
+          actions: [
+            IconButton(
+              onPressed: (){},
+              icon: Icon(Icons.check,color: Colors.white,),
+            ),
+            IconButton(
+              onPressed: (){
+                mapController.moveCamera(CameraUpdate.newCameraPosition(
+                    CameraPosition(target: Target,
+                    zoom: 15.0
+                    )
+                ));
+
+              },
+              icon: Icon(Icons.location_on,color: Colors.white,),
+            ),
+            IconButton(
+              onPressed: (){
+                mapController.moveCamera(CameraUpdate.newCameraPosition(
+                    CameraPosition(target: MyLocation,
+                        zoom: 15.0
+                    )
+                ));
+
+              },
+              icon: Icon(Icons.my_location,color: Colors.white,),
+            )
+          ],
+        ),
 
         body: Stack(
           children: [
@@ -96,16 +139,17 @@ class _MapClassState extends State<MapClassForOrder> {
                     markerId: MarkerId('TargetMarker'),
                     position: Target,
                     infoWindow: InfoWindow(
-                      title: 'البدايه',
-                      snippet: 'موقع ابتداء الرحله',
+                      title: 'نهايه الرحله',
+                      snippet: 'نهايه الرحله',
                     )),
 
               },
               initialCameraPosition: CameraPosition(
-                target: MyLocation,
-                zoom: 11.0,
+                target: Target,
+                zoom: 5.0,
 
               ),
+
             ),
 
 

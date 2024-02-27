@@ -30,6 +30,7 @@ class _ToWherePageState extends State<ToWherePage> {
   List<LatLng> polylineCoordinates = [];
   PolylinePoints polylinePoints = PolylinePoints();
   TextEditingController controller = TextEditingController();
+  bool clicked=false;
 
   _addPolyLine() {
     PolylineId id = PolylineId("poly");
@@ -38,7 +39,6 @@ class _ToWherePageState extends State<ToWherePage> {
 
     polylines[id] = polyline;
 
-    setState(() {});
   }
 
   _getPolyline(
@@ -184,6 +184,7 @@ class _ToWherePageState extends State<ToWherePage> {
                         ),
                       ),
                       TextButton(
+
                         onPressed: (){
                           setState(() {
                             Type_ofTrans="satha";
@@ -208,6 +209,7 @@ class _ToWherePageState extends State<ToWherePage> {
                         ),
                       ),
                       TextButton(
+
                         onPressed: () async{
                          // calc distance
                           Position MyPosition = await determinePosition();
@@ -231,31 +233,40 @@ class _ToWherePageState extends State<ToWherePage> {
                               EndlatDouble.toDouble(),
                               EndLongDouble.toDouble()
                           );
+                          setState(() {
+                            clicked=true;
+                          });
+                          Future.delayed(Duration(seconds: 2), () {
+                            // Your code to be executed after the delay
+                            Navigator.of(context).pushReplacement(
+
+                                MaterialPageRoute(builder: (context)=> MapClassForOrder(request:
+                                RequestModel(
+                                    date: new DateTime.now().toString(),
+                                    StartLat: MyPosition.latitude.toString(),
+                                    StartLong: MyPosition.longitude.toString(),
+                                    EndLat: SelectedLat,
+                                    EndLong: SelectedLong,
+                                    requestOwnerEmail: FirebaseAuth.instance.currentUser!.emailVerified.toString(),
+                                    requestOwnerNumber: FirebaseAuth.instance.currentUser!.phoneNumber.toString(),
+                                    Cash: FinalCash,
+                                    Type: Type_ofTrans,
+                                    diverEmail: "null",
+                                    diverNumber: "null"
 
 
-                          Navigator.of(context).pushReplacement(
-
-                              MaterialPageRoute(builder: (context)=> MapClassForOrder(request:
-                              RequestModel(
-                                date: new DateTime.now().toString(),
-                                StartLat: MyPosition.latitude.toString(),
-                                StartLong: MyPosition.longitude.toString(),
-                                EndLat: SelectedLat,
-                                EndLong: SelectedLong,
-                                requestOwnerEmail: FirebaseAuth.instance.currentUser!.emailVerified.toString(),
-                                requestOwnerNumber: FirebaseAuth.instance.currentUser!.phoneNumber.toString(),
-                                Cash: FinalCash,
-                                Type: Type_ofTrans,
-                                diverEmail: "null",
-                                diverNumber: "null"
+                                ),
+                                  polylines: polylines,
 
 
-                              ),
-                                 polylines: polylines,
+                                ))
+                            );
+
+                          });
 
 
-                              ))
-                          );
+
+
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -266,9 +277,9 @@ class _ToWherePageState extends State<ToWherePage> {
                               width: 100.w,
                               height: 100.h,
                             ),
-                            Text("التالي",
+                            Text(clicked? "انتظر":"التالي",
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.black ,
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w500
                               ),)
