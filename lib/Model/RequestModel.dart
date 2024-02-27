@@ -5,7 +5,7 @@ class RequestModel{
   String date;
   String diverEmail;
   String diverNumber;
-
+  String Type;
   String StartLat;
   String StartLong;
   String EndLat;
@@ -23,6 +23,7 @@ class RequestModel{
     required this.requestOwnerNumber,
     required this.StartLat,
     required this.StartLong,
+    required this.Type
 });
 
 

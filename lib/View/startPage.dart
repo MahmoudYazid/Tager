@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tager/View/loginPage.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:google_maps_directions/google_maps_directions.dart';
+import 'package:tager/resourses/GoogleApiKey.dart';
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
 // Required by Firebase plugins
   runApp(const startPage());
 }
