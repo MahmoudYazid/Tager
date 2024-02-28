@@ -43,6 +43,7 @@ dependencies:
   geolocator: ^11.0.0
   google_maps_directions: ^0.0.3+4
   url_launcher: ^6.2.5
+  geocoding: ^2.2.0
 
 dev_dependencies:
   flutter_test:

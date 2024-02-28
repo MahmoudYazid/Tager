@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tager/Model/RequestModel.dart';
 import 'package:tager/View/makeOrderProcessPages/to_where_page.dart';
@@ -45,8 +46,7 @@ class _MapClassState extends State<MapClassForOrder> {
     super.initState();
     _request = widget.request;
     polylines_ = widget.polylines;
-    print("result");
-    print(polylines_);
+
 
   }
 
@@ -151,6 +151,38 @@ class _MapClassState extends State<MapClassForOrder> {
               ),
 
             ),
+            Positioned(
+                bottom:0 ,
+                left: 0,
+                right: 0,
+                child:
+            Container(
+
+              margin: EdgeInsets.only(left: 10.w,right: 10.w,bottom: 10.h),
+              padding: EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10.dg)),
+                color: Colors.white,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+
+                children: [
+                  Text("سعر الرحله"),
+                  Text(_request.Cash, textAlign: TextAlign.center),
+                  Text("الوجهه"),
+                  Text(_request.TargetPlaceName, textAlign: TextAlign.center),
+                  Text("الرحله تبدا من"),
+                  Text(_request.StartPlaceName, textAlign: TextAlign.center),
+                  Text("طول الرحله"),
+                  Text(_request.Km, textAlign: TextAlign.center),
+
+
+                ],
+              ),
+
+            ))
 
 
           ],

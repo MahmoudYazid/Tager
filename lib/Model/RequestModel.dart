@@ -11,6 +11,9 @@ class RequestModel{
   String EndLat;
   String EndLong;
   String Cash;
+  String TargetPlaceName;
+  String StartPlaceName;
+  String Km;
   RequestModel({
 
     required this.Cash,
@@ -23,7 +26,10 @@ class RequestModel{
     required this.requestOwnerNumber,
     required this.StartLat,
     required this.StartLong,
-    required this.Type
+    required this.Type,
+    required this.TargetPlaceName,
+    required this.StartPlaceName,
+    required this.Km,
 });
 
 

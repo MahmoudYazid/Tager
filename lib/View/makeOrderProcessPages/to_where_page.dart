@@ -1,5 +1,6 @@
 import 'dart:ffi';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,12 +26,15 @@ class _ToWherePageState extends State<ToWherePage> {
   Future<AutoCompleteResp?> recommendationData = Future.value(null);
   String SelectedLat = "";
   String SelectedLong = "";
+  String TargetAreaText = "";
   String Type_ofTrans="";
+  bool ToastVisibilty =false;
   Map<PolylineId, Polyline> polylines = {};
   List<LatLng> polylineCoordinates = [];
   PolylinePoints polylinePoints = PolylinePoints();
   TextEditingController controller = TextEditingController();
   bool clicked=false;
+  String MyplaceName='';
 
   _addPolyLine() {
     PolylineId id = PolylineId("poly");
@@ -66,6 +70,8 @@ class _ToWherePageState extends State<ToWherePage> {
     }
     _addPolyLine();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -109,13 +115,18 @@ class _ToWherePageState extends State<ToWherePage> {
 
                     child:     GooglePlacesAutoCompleteTextFormField(
                         textEditingController: controller,
-                        googleAPIKey: GoogleApikeyInst,
+                        onChanged:(e){
+                          setState(() {
+                            TargetAreaText=e;
+                          });
+
+                        }
+                        ,googleAPIKey: GoogleApikeyInst,
                         debounceTime: 400, // defaults to 600 ms
                         isLatLngRequired: true, // if you require the coordinates from the place details
                         getPlaceDetailWithLatLng: (prediction) {
                           SelectedLat= prediction.lat.toString();
                           SelectedLong= prediction.lng.toString();
-                          print("Coordinates: (${prediction.lat},${prediction.lng})");
                         }, // this callback is called when isLatLngRequired is true
                         itmClick: (prediction) {
                           controller.text = prediction.description.toString();
@@ -144,15 +155,17 @@ class _ToWherePageState extends State<ToWherePage> {
                         ,child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
+
                           children: [
                             Image(
                               image: AssetImage('assets/src/goods.png'),
                               width: 100.w,
                               height: 100.h,
+
                             ),
                             Text("بضاعه",
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Type_ofTrans == "goods"?Colors.blue : Colors.black,
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w500
                               ),)
@@ -176,7 +189,7 @@ class _ToWherePageState extends State<ToWherePage> {
                             ),
                             Text("اثاث",
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Type_ofTrans == "furniture"?Colors.blue : Colors.black,
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w500
                               ),)
@@ -201,7 +214,7 @@ class _ToWherePageState extends State<ToWherePage> {
                             ),
                             Text("سطحه",
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Type_ofTrans == "satha"?Colors.blue : Colors.black,
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w500
                               ),)
@@ -212,60 +225,94 @@ class _ToWherePageState extends State<ToWherePage> {
 
                         onPressed: () async{
                          // calc distance
-                          Position MyPosition = await determinePosition();
-                          double StartLongDouble=MyPosition.longitude.toDouble();
-                          double StartlatDouble=MyPosition.latitude.toDouble();
-                          double EndLongDouble = double.parse(SelectedLong);
-                          double EndlatDouble = double.parse(SelectedLat);
-                          double Dist =Geolocator.distanceBetween(
 
-                            StartlatDouble,
-                            StartLongDouble,
-                            EndlatDouble.toDouble(),
-                            EndLongDouble.toDouble()
-                          );
-                          String FinalCash= CalculateCash(Dist,Type_ofTrans);
+                          if(TargetAreaText !="" && Type_ofTrans!="" && TargetAreaText.isEmpty==false && Type_ofTrans.isEmpty==false) {
+                            Position MyPosition = await determinePosition();
+                            double StartLongDouble=MyPosition.longitude.toDouble();
+                            double StartlatDouble=MyPosition.latitude.toDouble();
+                            double EndLongDouble = double.parse(SelectedLong);
+                            double EndlatDouble = double.parse(SelectedLat);
+                            double Dist =Geolocator.distanceBetween(
 
-                          // get polyLines
-                          _getPolyline(
-                              StartlatDouble,
-                              StartLongDouble,
-                              EndlatDouble.toDouble(),
-                              EndLongDouble.toDouble()
-                          );
-                          setState(() {
-                            clicked=true;
-                          });
-                          Future.delayed(Duration(seconds: 2), () {
-                            // Your code to be executed after the delay
-                            Navigator.of(context).pushReplacement(
+                                StartlatDouble,
+                                StartLongDouble,
+                                EndlatDouble.toDouble(),
+                                EndLongDouble.toDouble()
+                            )/1000;
+                            double CorrectDist = Dist + (Dist * .20) ;
 
-                                MaterialPageRoute(builder: (context)=> MapClassForOrder(request:
-                                RequestModel(
-                                    date: new DateTime.now().toString(),
-                                    StartLat: MyPosition.latitude.toString(),
-                                    StartLong: MyPosition.longitude.toString(),
-                                    EndLat: SelectedLat,
-                                    EndLong: SelectedLong,
-                                    requestOwnerEmail: FirebaseAuth.instance.currentUser!.emailVerified.toString(),
-                                    requestOwnerNumber: FirebaseAuth.instance.currentUser!.phoneNumber.toString(),
-                                    Cash: FinalCash,
-                                    Type: Type_ofTrans,
-                                    diverEmail: "null",
-                                    diverNumber: "null"
+                            String FinalCash= CalculateCash(CorrectDist.toInt(),Type_ofTrans);
 
-
-                                ),
-                                  polylines: polylines,
-
-
-                                ))
+                            // get polyLines
+                            _getPolyline(
+                                StartlatDouble,
+                                StartLongDouble,
+                                EndlatDouble.toDouble(),
+                                EndLongDouble.toDouble()
                             );
+                            setState(() {
+                              clicked=true;
+                            });
 
-                          });
+                            // get my place name
+                            List<Placemark> placemarks = await placemarkFromCoordinates(
+                                StartlatDouble, StartLongDouble);
+                            Placemark placemark = placemarks[0];
+                            setState(() {
+
+                              String formattedAddress = ' ${placemark.locality ?? 'N/A'},${placemark.subLocality ?? 'N/A'}, ${placemark.thoroughfare ?? 'N/A'}, ${placemark.subThoroughfare ?? 'N/A'}, ${placemark.administrativeArea ?? 'N/A'},${placemark.subAdministrativeArea ?? 'N/A'},${placemark.country ?? 'N/A'}';
+
+                              MyplaceName = formattedAddress ?? '';
+                            });
+
+                            Future.delayed(Duration(seconds: 2), () {
+                              // Your code to be executed after the delay
+                              Navigator.of(context).pushReplacement(
+
+                                  MaterialPageRoute(builder: (context) =>
+                                      MapClassForOrder(request:
+                                      RequestModel(
+                                          Km:CorrectDist.toInt().toString() ,
+
+                                          TargetPlaceName: controller.text.toString(),
+                                          StartPlaceName :MyplaceName.toString() ,
+                                          date: new DateTime.now().toString(),
+                                          StartLat: MyPosition.latitude
+                                              .toString(),
+                                          StartLong: MyPosition.longitude
+                                              .toString(),
+                                          EndLat: SelectedLat,
+                                          EndLong: SelectedLong,
+                                          requestOwnerEmail: FirebaseAuth
+                                              .instance.currentUser!
+                                              .emailVerified.toString(),
+                                          requestOwnerNumber: FirebaseAuth
+                                              .instance.currentUser!.phoneNumber
+                                              .toString(),
+                                          Cash: FinalCash,
+                                          Type: Type_ofTrans,
+                                          diverEmail: "null",
+                                          diverNumber: "null"
 
 
+                                      ),
+                                        polylines: polylines,
 
+
+                                      ))
+                              );
+                            });
+                          }
+
+                          if(TargetAreaText =="" || Type_ofTrans=="" || TargetAreaText.isEmpty==true || Type_ofTrans.isEmpty==true ) {
+                            setState(() {
+
+                              ToastVisibilty=true;
+
+                            });
+
+
+                          }
 
                         },
                         child: Column(
@@ -286,11 +333,22 @@ class _ToWherePageState extends State<ToWherePage> {
                           ],
                         ),
                       ),
+
                     ],
 
                     )
 
                     ),
+                  Visibility(
+                    visible: ToastVisibilty,
+                    child: Container(
+                      color: Colors.white,
+                      width: double.infinity,
+                      height: 30.h,
+
+                      child: Text("املأ باقي الطلبات",textAlign: TextAlign.center,),
+                    ),
+                  )
 
 
 

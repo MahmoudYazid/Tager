@@ -1,4 +1,4 @@
-String CalculateCash(double dist, String type_ofTrans){
+String CalculateCash(int dist, String type_ofTrans){
   double total = 0;
   switch(type_ofTrans){
     case "furniture": {
@@ -14,7 +14,7 @@ String CalculateCash(double dist, String type_ofTrans){
     };
 
   }
-  return total.toString();
+  return total.toInt().toString();
 
 
 }
