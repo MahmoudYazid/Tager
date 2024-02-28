@@ -35,6 +35,7 @@ class _ToWherePageState extends State<ToWherePage> {
   TextEditingController controller = TextEditingController();
   bool clicked=false;
   String MyplaceName='';
+  String NumberForConnection='';
 
   _addPolyLine() {
     PolylineId id = PolylineId("poly");
@@ -142,6 +143,31 @@ class _ToWherePageState extends State<ToWherePage> {
                       ),
 
                     )
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20.w,right: 20.w,top: 20.h),
+                    child:TextField(
+
+                      onChanged: (e){
+                        setState(() {
+                          NumberForConnection=e;
+                        });
+
+                      },
+
+
+                      decoration: const InputDecoration(
+
+                        hintText:"رقم الهاتف",
+                        labelStyle: TextStyle(color: Colors.black),
+
+                        border: OutlineInputBorder(),
+
+
+                      ),
+                      textAlign: TextAlign.center,
+
+                    ),
                   ),
                   Expanded(
                     child:GridView.count(crossAxisCount: 2,
@@ -285,10 +311,8 @@ class _ToWherePageState extends State<ToWherePage> {
                                           EndLong: SelectedLong,
                                           requestOwnerEmail: FirebaseAuth
                                               .instance.currentUser!
-                                              .emailVerified.toString(),
-                                          requestOwnerNumber: FirebaseAuth
-                                              .instance.currentUser!.phoneNumber
-                                              .toString(),
+                                              .email.toString(),
+                                          requestOwnerNumber:NumberForConnection,
                                           Cash: FinalCash,
                                           Type: Type_ofTrans,
                                           diverEmail: "null",

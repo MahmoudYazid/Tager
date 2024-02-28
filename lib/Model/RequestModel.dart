@@ -31,6 +31,24 @@ class RequestModel{
     required this.StartPlaceName,
     required this.Km,
 });
+  Map<String, dynamic> toMap() {
+    return {
+      'Cash': Cash,
+      'date': date,
+      'diverEmail': diverEmail,
+      'diverNumber': diverNumber,
+      'EndLat': EndLat,
+      'EndLong': EndLong,
+      'requestOwnerEmail': requestOwnerEmail,
+      'requestOwnerNumber': requestOwnerNumber,
+      'StartLat': StartLat,
+      'StartLong': StartLong,
+      'Type': Type,
+      'TargetPlaceName': TargetPlaceName,
+      'StartPlaceName': StartPlaceName,
+      'Km': Km,
+    };
+  }
 
 
 }

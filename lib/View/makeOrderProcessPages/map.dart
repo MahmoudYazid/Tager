@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -9,6 +10,8 @@ import 'package:tager/Model/RequestModel.dart';
 import 'package:tager/View/makeOrderProcessPages/to_where_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../resourses/GoogleApiKey.dart';
+
+import 'OkStatusPage.dart';
 // api key : AIzaSyA0T-3Pn3rAnONefJFmd8RzON1Q97inwt0
 class MapClassForOrder extends StatefulWidget {
   const MapClassForOrder(
@@ -93,7 +96,23 @@ class _MapClassState extends State<MapClassForOrder> {
             ),
           actions: [
             IconButton(
-              onPressed: (){},
+              onPressed: (){
+
+                // add to firebase
+                var Dbinst =FirebaseFirestore.instance.collection("orders");
+
+
+                Dbinst.add(_request.toMap()).then((value) =>
+
+                    Navigator.of(context).pushReplacement(
+
+                        MaterialPageRoute(builder: (context)=> OkStatus())
+                    )
+                );
+
+                // go to okStatus Page
+
+              },
               icon: Icon(Icons.check,color: Colors.white,),
             ),
             IconButton(
