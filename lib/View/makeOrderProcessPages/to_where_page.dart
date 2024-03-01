@@ -15,6 +15,7 @@ import 'package:tager/resourses/GoogleApiKey.dart';
 import '../../Model/AutoCompleteResp.dart';
 import '../../useCases/GetMyLocation.dart';
 import '../../useCases/Calculate_Cash.dart';
+import '../../useCases/getDataFromFirebaseOnUserTransactions.dart';
 class ToWherePage extends StatefulWidget {
   const ToWherePage({Key? key}) : super(key: key);
 
@@ -24,6 +25,8 @@ class ToWherePage extends StatefulWidget {
 
 class _ToWherePageState extends State<ToWherePage> {
   Future<AutoCompleteResp?> recommendationData = Future.value(null);
+  Future<String> TotalDocsNumber = Future.value('');
+  String TotalDocsNumber_AfterWait= '';
   String SelectedLat = "";
   String SelectedLong = "";
   String TargetAreaText = "";
@@ -36,6 +39,7 @@ class _ToWherePageState extends State<ToWherePage> {
   bool clicked=false;
   String MyplaceName='';
   String NumberForConnection='';
+
 
   _addPolyLine() {
     PolylineId id = PolylineId("poly");
@@ -76,6 +80,14 @@ class _ToWherePageState extends State<ToWherePage> {
 
   @override
   Widget build(BuildContext context) {
+    //extract total index
+    TotalDocsNumber = GetNewIndex();
+    TotalDocsNumber.then((value) =>
+    TotalDocsNumber_AfterWait= value
+    );
+
+
+
 
     return  FutureBuilder<AutoCompleteResp?>(
       future:recommendationData ,
@@ -298,6 +310,7 @@ class _ToWherePageState extends State<ToWherePage> {
                                   MaterialPageRoute(builder: (context) =>
                                       MapClassForOrder(request:
                                       RequestModel(
+                                          id: TotalDocsNumber_AfterWait ,
                                           Km:CorrectDist.toInt().toString() ,
 
                                           TargetPlaceName: controller.text.toString(),

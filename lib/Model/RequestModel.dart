@@ -14,8 +14,9 @@ class RequestModel{
   String TargetPlaceName;
   String StartPlaceName;
   String Km;
+  String id;
   RequestModel({
-
+    required this.id,
     required this.Cash,
     required this.date,
     required this.diverEmail,
@@ -47,6 +48,7 @@ class RequestModel{
       'TargetPlaceName': TargetPlaceName,
       'StartPlaceName': StartPlaceName,
       'Km': Km,
+      'id': id,
     };
   }
 

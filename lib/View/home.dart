@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tager/View/Activities/Activities.dart';
 import 'package:tager/View/makeOrderProcessPages/to_where_page.dart';
+import 'package:tager/View/searchForOrder/searchForOrder.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -54,24 +55,32 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(height: 10.h,)
-              ,Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image(
-                      image: AssetImage('assets/src/search.png'),
-                      width: 50.w,
-                      height: 50.h,
-                    ),
-                    Text("البحث عن طلب",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w500
-                    ),
-                    )
-                  ],
-                ),
+              ,TextButton(
+                  onPressed: (){
+                    Navigator.of(context).pushReplacement(
+
+                        MaterialPageRoute(builder: (context)=> seachForOrder())
+                    );
+                  },
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image(
+                        image: AssetImage('assets/src/search.png'),
+                        width: 50.w,
+                        height: 50.h,
+                      ),
+                      Text("البحث عن طلب",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500
+                      ),
+                      )
+                    ],
+                  ),
+              ),
                 SizedBox(height: 10.h,)
                 ,TextButton(
                   onPressed: (){

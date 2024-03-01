@@ -53,10 +53,10 @@ class _OldsendTransState extends State<OldsendTrans> {
                     var imgtype = doc['Type'];
                     var driverEmailVar = (doc['diverEmail'] == null || doc['diverEmail'].toString() == "null")
                         ? 'لا يوجد سائق حتى الآن'
-                        : doc['driverEmail'];
+                        : doc['diverEmail'];
                     var driverNumVar = (doc['diverNumber'] == null || doc['diverNumber'].toString() == "null")
                         ? 'لا يوجد سائق حتى الآن'
-                        : doc['driverNumber'];
+                        : doc['diverNumber'];
                     return Container(
                       width: double.infinity,
                       height: 150.h,

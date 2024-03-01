@@ -102,7 +102,7 @@ class _MapClassState extends State<MapClassForOrder> {
                 var Dbinst =FirebaseFirestore.instance.collection("orders");
 
 
-                Dbinst.add(_request.toMap()).then((value) =>
+                Dbinst.doc(_request.id).set(_request.toMap()).then((value) =>
 
                     Navigator.of(context).pushReplacement(
 

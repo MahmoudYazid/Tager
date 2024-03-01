@@ -31,3 +31,15 @@ Stream<QuerySnapshot<Map<String, dynamic>>>  GetDataAsOwner(){
   }
 
 }
+
+Future<String> GetNewIndex() async {
+  var Totalcount = 0;
+  var querySnapshot = await FirebaseFirestore.instance
+      .collection("orders")
+      .get();
+
+  int newcount = querySnapshot.size;
+  Totalcount = newcount + 1;
+
+  return Totalcount.toString();
+}
