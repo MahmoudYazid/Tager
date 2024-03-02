@@ -157,6 +157,13 @@ class _OldDriveTransState extends State<OldDriveTrans> {
                                 ],
                               ),
                             ),
+                            Container(
+                              width: 10.w,
+                              height:double.infinity,
+                              decoration: BoxDecoration(
+                                color: doc['status']== "in process"?Colors.yellow: doc['status']=="end"?Colors.green:Colors.red,
+                              ),
+                            )
                           ],
                         ),
                       ),
