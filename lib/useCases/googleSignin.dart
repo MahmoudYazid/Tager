@@ -5,6 +5,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tager/View/home.dart';
 import 'package:tager/View/map.dart';
+import 'package:tager/View/trackGoodsAfterAccept/Check.dart';
+import 'package:tager/View/trackGoodsAfterAccept/Track.dart';
+
+import 'GetActiveRequestOfUser.dart';
 
 void signInWithGoogle(context) async {
   try {
@@ -19,10 +23,14 @@ void signInWithGoogle(context) async {
     );
 
     await FirebaseAuth.instance.signInWithCredential(credential);
-    Navigator.of(context).pushReplacement(
 
-        MaterialPageRoute(builder: (context)=> Home())
-    );
+
+      Navigator.of(context).pushReplacement(
+
+          MaterialPageRoute(builder: (context)=> CheckPage())
+      );
+
+
   } on Exception catch (e) {
     // TODO
   }

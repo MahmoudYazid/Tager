@@ -9,7 +9,7 @@ void Update(dynamic dataInput,String PhoneNumber , String EmailOfAccount){
       .instance
       .collection("orders")
   .doc(dataInput['id'])
-  .update({'diverEmail' : EmailOfAccount,'diverNumber' : PhoneNumber});
+  .update({'diverEmail' : EmailOfAccount,'diverNumber' : PhoneNumber,'status':'in process'});
 
 
 

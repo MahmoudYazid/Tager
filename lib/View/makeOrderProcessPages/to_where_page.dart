@@ -311,6 +311,7 @@ class _ToWherePageState extends State<ToWherePage> {
                                       MapClassForOrder(request:
                                       RequestModel(
                                           id: TotalDocsNumber_AfterWait ,
+                                          status:'null',
                                           Km:CorrectDist.toInt().toString() ,
 
                                           TargetPlaceName: controller.text.toString(),

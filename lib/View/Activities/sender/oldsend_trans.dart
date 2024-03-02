@@ -81,6 +81,7 @@ class _OldsendTransState extends State<OldsendTrans> {
                                   Text(doc['Km'] + " " + "كيلومتر"),
 
                                   Text(doc['Cash'] + " " + "ريال"),
+                                  Text(doc['id'] + " " + "كلمه السر "),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -138,6 +139,7 @@ class _OldsendTransState extends State<OldsendTrans> {
                                         },
                                         icon: Icon(Icons.drive_eta),
                                       ),
+
                                     ],
                                   ),
                                 ],
@@ -158,9 +160,17 @@ class _OldsendTransState extends State<OldsendTrans> {
                                     overflow: TextOverflow.clip,
                                     textAlign: TextAlign.center,
                                   ),
+                               
                                 ],
                               ),
                             ),
+                            Container(
+                              width: 10.w,
+                              height:double.infinity,
+                              decoration: BoxDecoration(
+                                color: doc['status']== "in process"?Colors.yellow: doc['status']=="end"?Colors.green:Colors.red,
+                              ),
+                            )
                           ],
                         ),
                       ),

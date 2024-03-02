@@ -15,6 +15,7 @@ class RequestModel{
   String StartPlaceName;
   String Km;
   String id;
+  String status;
   RequestModel({
     required this.id,
     required this.Cash,
@@ -31,6 +32,7 @@ class RequestModel{
     required this.TargetPlaceName,
     required this.StartPlaceName,
     required this.Km,
+    required this.status,
 });
   Map<String, dynamic> toMap() {
     return {
@@ -49,6 +51,7 @@ class RequestModel{
       'StartPlaceName': StartPlaceName,
       'Km': Km,
       'id': id,
+      'status':status
     };
   }
 
