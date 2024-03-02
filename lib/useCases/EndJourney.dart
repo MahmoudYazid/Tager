@@ -2,9 +2,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tager/View/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-
-void EndJourny(dynamic dataInput,String Password,context){
+Future<void> EndJourny(dynamic dataInput,String Password,context,timer) async {
   if (Password==dataInput['id']) {
 
     var docRef = FirebaseFirestore
@@ -13,10 +13,17 @@ void EndJourny(dynamic dataInput,String Password,context){
         .doc(dataInput['id'])
         .update({'status':'end'});
 
+    timer?.cancel();
+    await FirebaseFirestore.instance
+        .collection('users_location_live')
+        .doc(FirebaseAuth.instance.currentUser!.email.toString())
+        .delete();
+
     Navigator.of(context).pushReplacement(
 
         MaterialPageRoute(builder: (context)=> Home())
     );
+
   }
 
 

@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:tager/useCases/updatePosition.dart';
 
 import '../../useCases/EndJourney.dart';
 import '../../useCases/GetActiveRequestOfUser.dart';
+import '../../useCases/GetMyLocation.dart';
 import '../../useCases/searchUsercase.dart';
 import '../../useCases/updateJournyInDb.dart';
 
@@ -17,6 +21,21 @@ class Track extends StatefulWidget {
 }
 
 class _TrackState extends State<Track> {
+  Timer? timer;
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(Duration(seconds: 15), (Timer t)  {
+
+     var x = determinePosition().then((value) {
+       updatePosition_F(value.longitude.toString(), value.latitude.toString());
+     });
+
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     String password ="0";
@@ -195,7 +214,7 @@ class _TrackState extends State<Track> {
                                           child: TextButton(
 
                                             onPressed: (){
-                                              EndJourny(snapshot.data!.docs[0],password,context);
+                                              EndJourny(snapshot.data!.docs[0],password,context,timer);
                                               //CheckPassword();
                                             },
                                             child: Text("فحص"),
