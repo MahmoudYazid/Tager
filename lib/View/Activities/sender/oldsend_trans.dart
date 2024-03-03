@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tager/View/Activities/Activities.dart';
+import 'package:tager/View/Activities/sender/get_my_product_position.dart';
 
 import '../../../useCases/getDataFromFirebaseOnUserTransactions.dart';
 
@@ -139,6 +140,17 @@ class _OldsendTransState extends State<OldsendTrans> {
                                         },
                                         icon: Icon(Icons.drive_eta),
                                       ),
+                                      Visibility(
+                                        visible: doc['status']=="in process"?true:false ,
+                                        child: IconButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pushReplacement(
+
+                                              MaterialPageRoute(builder: (context)=> GetMyProductPosition( TargetEmail: doc['diverEmail'],))
+                                          );
+                                        },
+                                        icon: Icon(Icons.gpp_maybe_sharp),
+                                      ),)
 
                                     ],
                                   ),
