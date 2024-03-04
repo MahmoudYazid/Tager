@@ -4,7 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tager/View/loginPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_maps_directions/google_maps_directions.dart';
+import 'package:tager/View/trackGoodsAfterAccept/Check.dart';
 import 'package:tager/resourses/GoogleApiKey.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -20,8 +23,10 @@ class startPage extends StatefulWidget {
 }
 
 class _startPageState extends State<startPage> {
+
   @override
   Widget build(BuildContext context) {
+
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,

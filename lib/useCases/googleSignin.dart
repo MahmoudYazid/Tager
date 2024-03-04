@@ -3,12 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tager/View/home.dart';
-import 'package:tager/View/map.dart';
-import 'package:tager/View/trackGoodsAfterAccept/Check.dart';
-import 'package:tager/View/trackGoodsAfterAccept/Track.dart';
 
-import 'GetActiveRequestOfUser.dart';
+import 'package:tager/View/trackGoodsAfterAccept/Check.dart';
 
 void signInWithGoogle(context) async {
   try {
