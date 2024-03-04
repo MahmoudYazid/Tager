@@ -265,7 +265,7 @@ class _ToWherePageState extends State<ToWherePage> {
                          // calc distance
 
                           if(TargetAreaText !="" && Type_ofTrans!="" && TargetAreaText.isEmpty==false && Type_ofTrans.isEmpty==false) {
-                            Position MyPosition = await determinePosition();
+                            Position MyPosition = await determinePosition(context);
                             double StartLongDouble=MyPosition.longitude.toDouble();
                             double StartlatDouble=MyPosition.latitude.toDouble();
                             double EndLongDouble = double.parse(SelectedLong);

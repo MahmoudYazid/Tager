@@ -1,6 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
-Future<Position> determinePosition() async {
+Future<Position> determinePosition(BuildContext context) async {
   bool serviceEnabled;
   LocationPermission permission;
 
@@ -22,6 +25,7 @@ Future<Position> determinePosition() async {
   if (permission == LocationPermission.deniedForever) {
     return Future.error(
         'Location permissions are permanently denied, we cannot request permissions.');
+
   }
 
 

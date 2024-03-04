@@ -52,9 +52,13 @@ class _CheckPageState extends State<CheckPage> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     // Return the rotating icon while waiting for the navigation to happen
-    return RotationTransition(
-      turns: _controller,
-      child: Icon(Icons.refresh), // You can replace this with any icon you want
+    return MaterialApp(
+      home: Scaffold(
+        body: RotationTransition(
+          turns: _controller,
+          child: Icon(Icons.refresh), // You can replace this with any icon you want
+        ),
+      ),
     );
   }
 }

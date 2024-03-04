@@ -28,7 +28,7 @@ class _TrackState extends State<Track> {
     super.initState();
     timer = Timer.periodic(Duration(seconds: 15), (Timer t)  {
 
-     var x = determinePosition().then((value) {
+     var x = determinePosition(context).then((value) {
        updatePosition_F(value.longitude.toString(), value.latitude.toString());
      });
 

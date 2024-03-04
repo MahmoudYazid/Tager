@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tager/View/searchForOrder/searchForOrder.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tager/View/trackGoodsAfterAccept/Track.dart';
 
 import '../../useCases/searchUsercase.dart';
 import '../../useCases/updateJournyInDb.dart';
@@ -229,6 +230,10 @@ class _ResultState extends State<Result> {
                                                           Update(doc,DriverNumber,FirebaseAuth
                                                               .instance.currentUser!
                                                               .email.toString());
+                                                          Navigator.of(context).pushReplacement(
+
+                                                              MaterialPageRoute(builder: (context)=> Track())
+                                                          );
                                                         },
                                                         child: Text("اوافق"),
                                                       ),

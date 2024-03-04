@@ -9,6 +9,7 @@ Stream<QuerySnapshot<Map<String, dynamic>>>  GetofSearchFunctions(String targetP
       .where("Type",isEqualTo: TypeOfTrans)
       .where("diverEmail",isEqualTo: "null")
       .where("diverNumber",isEqualTo: "null")
+
       .snapshots();
   if (res != null) {
     return res;
